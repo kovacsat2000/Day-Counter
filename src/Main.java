@@ -6,7 +6,7 @@ public class Main extends JFrame implements ActionListener {
     static JTextField t, t2;
     static JFrame f;
     static JButton b;
-    static JLabel l, l2, l3;
+    static JLabel l;
 
     Main()
     {
@@ -16,9 +16,6 @@ public class Main extends JFrame implements ActionListener {
         f = new JFrame("Day counter");
 
         l = new JLabel();
-
-        l2 = new JLabel("Date format: DD.MM.YYYY");
-        l3 = new JLabel("                    ");
 
         b = new JButton("Count");
 
@@ -35,8 +32,6 @@ public class Main extends JFrame implements ActionListener {
         p.add(t2);
         p.add(b);
         p.add(l);
-        p.add(l3);
-        p.add(l2);
 
         f.add(p);
 
@@ -49,14 +44,19 @@ public class Main extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Dates dates = new Dates();
 
-        dates.getBeginDate(t.getText());
-        dates.getEndDate(t2.getText());
+        try{
 
-        String days = String.valueOf(dates.countDays());
+            dates.getBeginDate(t.getText());
+            dates.getEndDate(t2.getText());
 
-        String s = e.getActionCommand();
-        if (s.equals("Count")) {
-            l.setText(days);
+            String days = String.valueOf(dates.countDays());
+            String s = e.getActionCommand();
+            if (s.equals("Count")) {
+                l.setText(days);
+            }
+
+        } catch (Exception ex){
+            l.setText("Nem érvényes dátum. Formátum: DD.MM.YYYY");
         }
     }
 }
